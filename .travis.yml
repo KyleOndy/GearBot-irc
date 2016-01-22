@@ -1,0 +1,49 @@
+# Use new container infrastructure to enable caching
+sudo: false
+
+# Choose a lightweight base image; we provide our own build tools.
+language: c
+
+# The different configurations we want to test. You could also do things like
+# change flags or use --stack-yaml to point to a different file.
+env:
+- ARGS="--resolver lts-4"
+- ARGS="--resolver lts"
+- ARGS="--resolver nightly"
+
+before_install:
+# Download and unpack the stack executable
+- mkdir -p ~/.local/bin
+- export PATH=$HOME/.local/bin:$PATH
+- travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+
+# This line does all of the work: installs GHC if necessary, build the library,
+# executables, and test suites, and runs the test suites. --no-terminal works
+# around some quirks in Travis's terminal implementation.
+script:
+  - stack build --no-terminal --install-ghc
+  - mkdir ./_dist
+  - cp $(stack path --local-install-root)/bin/irc-GearBot ./_dist
+
+# Caching so the next build will be fast too.
+cache:
+  directories:
+  - $HOME/.stack
+
+addons:
+    s3_region: "us-east-1"
+    apt:
+      packages:
+      - libgmp-dev
+
+deploy:
+  provider: s3
+  access_key_id: AKIAJDZUS7IAYMNRGXSA
+  secret_access_key:
+    secure: s7TTi8H39ZKWalJx/42u3AW5DUQPkAVwg+esY39zgFzqzNhpEBusbJbm/qGpT8iNeymIEeM2bXvP7isbWwRGkSzYw8iBieegW3CY9k/RlB7FUTJsvBP+dcsg/qohc8JXEVDP+t785qTkrbAYfCjTFrNgYYuqcSK/CmubC/aaoE/mYWAVL3xxKo+mkmn0F1/AqGB5VbJyqVBh2dFY8OXBBSRItFcpQ4+G/a2klxGssso091z9PHJ3+1rTaS27+M90nmMryzQ2QoiIMWniRUPso9h2521LsjSohc8Mu9K2qM1ix7UZJiNExSNTcDGNKOb3hwlzkwtDHn/kBw4NvAwQR+t66Gc6+YE+0C70sK6G2xQqcDq/u+PyO+86Uvi9OQjgZKTwoOvYE1d8HSfuIVGYiZ/bhcMSC93JzdIsfD71vSzMH1cTR+8hKPcoOTd4A/tlpprpCilSw5j92godnf4/9Rioq6boDXAVFC3LDo7yw12KTJlzZ1uSAhI2Nf8QlieJVfvFWprZ1fBmiVMBguzYNHLMwJbRegUmwLVEHC0V8SX1Ydzo1DSoRho8C5genRma+kDfL3ZJLT9U3cJ6YFbyMBgkhr//TK/f+/NvKn7NKAU+lbwgViAeJzdH6ZOV187yJNQlEQCE7MIZyl04lIfXRc5f9z694riuEfGZhcEaqDk=
+  bucket: irc-gearbot
+  on:
+    repo: KyleOndy/irc-GearBot
+  local_dir: _dist
+  skip_cleanup: true
+  acl: public_read
