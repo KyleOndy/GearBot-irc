@@ -30,3 +30,6 @@ I need to learn these monad things and write good code. Any PRs will be gladdy a
 
 ### Increase Modularity - More Site to Scrape ###
 Make each site a module, have the ability to scrape multiple sites at various intervals.
+
+### Configure via environmental variables ###
+Pass irc channel, server, etc. either through environmental variables or command line args
