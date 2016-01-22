@@ -5,6 +5,7 @@ import Data.List
 import Network
 import System.IO
 import System.Exit
+import System.Environment
 import Text.Printf
 import Control.Concurrent
 import GearWatcher
@@ -19,17 +20,22 @@ chan :: String
 chan = "#climbing"
 
 nick :: String
-nick = "GearBot"
+nick = "gearbot"
 
 main :: IO ()
 main = do
     h <- connectTo server (PortNumber (fromIntegral port))
     hSetBuffering h NoBuffering
     -- join the server
-    write h "NICK" nick
-    write h "USER" (nick++" 0 * :tutorial bot")
-    write h "JOIN" chan
-    -- print welcome message
+    forkIO $ do
+      threadDelay(microSecondsPerSeconds * 5)
+      write h "NICK" nick
+      write h "USER" (nick++" 0 * :gearbot")
+      threadDelay(microSecondsPerSeconds * 5)
+      password <- getEnv "gearbotpass"
+      write h "PRIVMSG NickServ" (":identify gearbot " ++ password)
+      write h "JOIN" chan
+      -- print welcome message
     forkIO $ do
       {-
       to prevent sending all the front page deals when we start a new bot
