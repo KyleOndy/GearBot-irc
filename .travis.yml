@@ -46,3 +46,4 @@ deploy:
   acl: public_read
   on:
     repo: KyleOndy/GearBot-irc
+  skip_cleanup: true
