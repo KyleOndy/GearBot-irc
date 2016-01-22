@@ -1,4 +1,5 @@
 # GearBot #
+[![Build Status](https://travis-ci.org/KyleOndy/GearBot-irc.svg?branch=master)](https://travis-ci.org/KyleOndy/GearBot-irc)
 
 GearBot is a simple irc bot that posts deals to the climbing irc channel, #climbing, on snoonet.
 The bot is written in Haskell.
