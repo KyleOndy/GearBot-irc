@@ -30,7 +30,6 @@ main = do
     write h "USER" (nick++" 0 * :tutorial bot")
     write h "JOIN" chan
     -- print welcome message
-    printInfo h
     forkIO $ do
       {-
       to prevent sending all the front page deals when we start a new bot
