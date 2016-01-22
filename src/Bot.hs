@@ -10,13 +10,13 @@ import Control.Concurrent
 import GearWatcher
 
 server :: String
-server = "irc.freenode.org"
+server = "irc.snoonet.org"
 
 port :: Integer
 port = 6667
 
 chan :: String
-chan = "#climbinggear"
+chan = "#climbing"
 
 nick :: String
 nick = "GearBot"
