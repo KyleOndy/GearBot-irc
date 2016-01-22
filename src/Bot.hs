@@ -44,7 +44,7 @@ main = do
     listen h
 
 microSecondsPerSeconds :: Int
-microSecondsPerSeconds = 10000000
+microSecondsPerSeconds = 1000000
 
 watchForNewGear :: Handle -> [Listing] -> IO ()
 watchForNewGear h l = do
