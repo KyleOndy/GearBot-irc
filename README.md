@@ -34,3 +34,6 @@ Make each site a module, have the ability to scrape multiple sites at various in
 
 ### Configure via environmental variables ###
 Pass irc channel, server, etc. either through environmental variables or command line args
+
+### Recieve notifications via socket ###
+Run scrappers as a service. Push to irc bot, pushbulet, etc
