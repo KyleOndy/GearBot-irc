@@ -95,5 +95,5 @@ printInfo ::Handle ->  IO ()
 printInfo h = do
     privmsg h "Hello!. I am GearBot v[version]"
     privmsg h "I troll the internet and post deals on gear you want"
-    privmsg h "Hack on me at https://github.com/KyleOndy/irc-GearBot"
+    privmsg h "Hack on me at https://github.com/KyleOndy/GearBot-irc"
     privmsg h "If I am doing bad things just type 'gb!quit' to make me go away"
