@@ -10,6 +10,9 @@ I know this code is not in a great state. My Haskell knowledge is still growing.
 If you have any comments or suggestion I would love to hear them.
 Want to submit a PR? I'd be forever grateful.
 
+## Fixes Needed ##
+* Unicode support? Some chracter crashed the bot.
+
 ## Future Thoughts ##
 Some things I want to work towards implementing
 
