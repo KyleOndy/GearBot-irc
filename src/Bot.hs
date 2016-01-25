@@ -17,7 +17,7 @@ port :: Integer
 port = 6667
 
 chan :: String
-chan = "#climbing"
+chan = "#climbinggear"
 
 nick :: String
 nick = "gearbot"
