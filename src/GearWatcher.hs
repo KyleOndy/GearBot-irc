@@ -5,6 +5,8 @@ module GearWatcher (
   getFrontPageListings,
 ) where
 
+import Data.Char
+import Data.List (isInfixOf)
 import Network.HTTP.Conduit (simpleHttp)
 import Text.HTML.DOM (parseLBS)
 import Text.XML.Cursor
@@ -51,9 +53,13 @@ getFrontPageSales :: Cursor -> [Listing]
 getFrontPageSales c =
   map parseListing $ c $// findNodes -- &| extractData
 
+ignoreSold :: [Listing] -> [Listing]
+ignoreSold l =
+  filter (\itm -> isInfixOf "sold" (map toLower $ description itm))  l
+
 --------------------------------------------------------------------------------
 
 getFrontPageListings :: IO [Listing]
 getFrontPageListings = do
   cursor <- cursorFor forSaleForum
-  return $ getFrontPageSales cursor
+  return $ ignoreSold $ getFrontPageSales cursor
