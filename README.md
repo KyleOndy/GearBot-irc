@@ -36,7 +36,8 @@ I need to learn these monad things and write good code. Any PRs will be gladdy a
 Make each site a module, have the ability to scrape multiple sites at various intervals.
 
 ### Configure via environmental variables ###
-Pass irc channel, server, etc. either through environmental variables or command line args
+Pass irc channel, server, etc. either through environmental variables or command line argso
+Log level / verbosity of STDOUT
 
 ### Recieve notifications via socket ###
 Run scrappers as a service. Push to irc bot, pushbulet, etc
