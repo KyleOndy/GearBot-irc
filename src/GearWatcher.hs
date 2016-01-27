@@ -55,11 +55,11 @@ getFrontPageSales c =
 
 ignoreSold :: [Listing] -> [Listing]
 ignoreSold l =
-  filter (\itm -> isInfixOf "sold" (map toLower $ description itm))  l
+  filter (\itm -> not $ isInfixOf "sold" (map toLower $ description itm))  l
 
 ignoreWTB :: [Listing] -> [Listing]
 ignoreWTB l =
-  filter (\itm -> isInfixOf "wtb" (map toLower $ description itm))  l
+  filter (\itm -> not $ isInfixOf "wtb" (map toLower $ description itm))  l
 
 
 --------------------------------------------------------------------------------
