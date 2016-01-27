@@ -57,9 +57,14 @@ ignoreSold :: [Listing] -> [Listing]
 ignoreSold l =
   filter (\itm -> isInfixOf "sold" (map toLower $ description itm))  l
 
+ignoreWTB :: [Listing] -> [Listing]
+ignoreWTB l =
+  filter (\itm -> isInfixOf "wtb" (map toLower $ description itm))  l
+
+
 --------------------------------------------------------------------------------
 
 getFrontPageListings :: IO [Listing]
 getFrontPageListings = do
   cursor <- cursorFor forSaleForum
-  return $ ignoreSold $ getFrontPageSales cursor
+  return $ ignoreWTB $ ignoreSold $ getFrontPageSales cursor
