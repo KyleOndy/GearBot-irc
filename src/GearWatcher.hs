@@ -54,12 +54,10 @@ getFrontPageSales c =
   map parseListing $ c $// findNodes -- &| extractData
 
 ignoreSold :: [Listing] -> [Listing]
-ignoreSold l =
-  filter (\itm -> not $ isInfixOf "sold" (map toLower $ description itm))  l
+ignoreSold = filter (\itm -> not $ isInfixOf "sold" (map toLower $ description itm))
 
 ignoreWTB :: [Listing] -> [Listing]
-ignoreWTB l =
-  filter (\itm -> not $ isInfixOf "wtb" (map toLower $ description itm))  l
+ignoreWTB = filter (\itm -> not $ isInfixOf "wtb" (map toLower $ description itm))
 
 
 --------------------------------------------------------------------------------
