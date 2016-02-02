@@ -12,6 +12,7 @@ Want to submit a PR? I'd be forever grateful.
 
 ## Fixes Needed ##
 * Unicode support? Some chracter crashed the bot.
+* **ADD TESTNG**
 
 ## Future Thoughts ##
 Some things I want to work towards implementing
