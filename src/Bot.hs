@@ -84,13 +84,13 @@ listen h = forever $ do
     if ping s then pong s else eval h (clean s)
     putStrLn s
   where
-    forever a = a >> forever a
+    forever   = forever
     clean     = reverse . takeWhile(/= ':') . reverse
     ping x    = "PING :" `isPrefixOf` x
     pong x    = write h "PONG" (':' : drop 6 x)
 
 eval :: Handle -> String -> IO ()
-eval h  "gb!quit" = write h "QUIT" ":Exiting" >> exitWith ExitSuccess
+eval h  "gb!quit" = write h "QUIT" ":Exiting" >> exitSuccess
 eval h  "gb!info" = printInfo h
 eval _   _        = return () -- ignore everything else
 
