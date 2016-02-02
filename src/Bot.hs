@@ -56,10 +56,10 @@ watchForNewGear :: Handle -> [Listing] -> IO ()
 watchForNewGear h l = do
       currentFrontPageListings <-getFrontPageListings
       let newListings = currentFrontPageListings \\ l
-      if length newListings > 0
+      if not (null newListings)
       then do
-        let newestUnalertedListing = head $ reverse newListings
-        privmsg h $ (formatListing newestUnalertedListing)
+        let newestUnalertedListing = last newListings
+        privmsg h (formatListing newestUnalertedListing)
         -- there may be more gear to check. Quickly!
         threadDelay(microSecondsPerSeconds * 5)
         watchForNewGear h (l ++ [newestUnalertedListing])
