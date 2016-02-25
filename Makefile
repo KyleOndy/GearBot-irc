@@ -1,4 +1,4 @@
-PROGRAM_NAME=irc-GearBot
+PROGRAM_NAME=GearBot-irc
 
 .PHONY: build
 build:
