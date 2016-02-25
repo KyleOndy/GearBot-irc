@@ -24,7 +24,7 @@ before_install:
 script:
   - stack build --no-terminal --install-ghc
   - mkdir ./_dist
-  - cp $(stack path --local-install-root)/bin/irc-GearBot ./_dist
+  - cp $(stack path --local-install-root)/bin/GearBot-irc ./_dist
 
 # Caching so the next build will be fast too.
 cache:
