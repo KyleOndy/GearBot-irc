@@ -36,10 +36,7 @@ main = do
       write h "PRIVMSG NickServ" (":identify gearbot " ++ password)
       write h "JOIN" chan
       -- print welcome message
-    forkIO $ do
-      l <- newPostings
-      unless (null l) (mapM_ (\a -> privmsg h $ formatListing a) l)
-      threadDelay(microSecondsPerSeconds * 60)
+      postListings h
     listen h
 
 microSecondsPerSeconds :: Int
@@ -47,6 +44,14 @@ microSecondsPerSeconds = 1000000
 
 formatListing :: Listing -> String
 formatListing l = description l ++ " - " ++ url l
+
+postListings :: Handle -> IO ()
+postListings h = do
+      l <- newPostings
+      unless (null l) (mapM_ (\a -> privmsg h $ formatListing a) l)
+      threadDelay(microSecondsPerSeconds * 60)
+      postListings h
+
 
 
 write :: Handle -> String -> String -> IO ()
