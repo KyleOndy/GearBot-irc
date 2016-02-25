@@ -15,7 +15,7 @@ cabal-version:       >=1.10
 executable GearBot-irc
   hs-source-dirs:      src/
   main-is:             Bot.hs
-  ghc-options:         -threaded -isrc -Wall -fno-warn-unused-do-bind
+  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind
   build-depends:       base
                      , network
                      , xml-conduit
