@@ -1,7 +1,7 @@
 # GearBot #
 [![Build Status](https://travis-ci.org/KyleOndy/GearBot-irc.svg?branch=master)](https://travis-ci.org/KyleOndy/GearBot-irc)
 
-GearBot is a simple irc bot that posts deals to the climbing irc channel, #climbing, on snoonet.
+GearBot is a simple irc bot that posts deals to the climbingdeals irc channel, #climbingdeals, on snoonet.
 The bot is written in Haskell.
 
 ## Contributing ##
@@ -11,17 +11,13 @@ If you have any comments or suggestion I would love to hear them.
 Want to submit a PR? I'd be forever grateful.
 
 ## Fixes Needed ##
-* Unicode support? Some chracter crashed the bot.
+* Unicode support? non ascii? chracter crashed the bot.
 * **ADD TESTNG**
 
 ## Future Thoughts ##
 Some things I want to work towards implementing
 
 ### Prevent bumps from being posted ###
-
-Since the bot is only seeded with the initial front page posts, a post that is bumped will be triggered like a new post.
-The frequency of this happening decreases the longer that bot run.
-
 Possibly prevent this checking number of post in the thread?
 
 ### Alert on new post vs title change ###
