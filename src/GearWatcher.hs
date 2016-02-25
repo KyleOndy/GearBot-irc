@@ -72,4 +72,5 @@ newPostings = do
   let notYetChecked =frontPageItemsIds \\ checkedItemIds
 
   let toBeNotifiedOf = filter (\i -> postId i `elem` notYetChecked) $ getFrontPageSales cursor
+  mapM_ ((\itm -> appendFile checkedPosts $ itm ++ "\n") . postId) toBeNotifiedOf
   return toBeNotifiedOf
