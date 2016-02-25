@@ -2,19 +2,15 @@
 
 module GearWatcher (
   Listing(..),
-  getFrontPageListings,
+  newPostings,
 ) where
 
-import Data.Char
-import Data.List (isInfixOf)
 import Network.HTTP.Conduit (simpleHttp)
 import Text.HTML.DOM (parseLBS)
 import Text.XML.Cursor
+import Data.List
+import Data.List.Split
 
-data Listing = Listing { url :: String
-                         , description :: String
-                         , postId :: String
-                         } deriving (Show, Eq)
 
 siteUrl :: String
 siteUrl = "http://www.mountainproject.com"
@@ -40,6 +36,11 @@ cleanString i =
 
 --------------------------------------------------------------------------------
 
+data Listing = Listing { url :: String
+                         , description :: String
+                         , postId :: String
+                         } deriving (Show)
+
 parseListing :: Cursor -> Listing
 parseListing c =
   let u = siteUrl ++ cleanString (show $ attribute "href" c)
@@ -53,16 +54,23 @@ getFrontPageSales :: Cursor -> [Listing]
 getFrontPageSales c =
   map parseListing $ c $// findNodes -- &| extractData
 
-ignoreSold :: [Listing] -> [Listing]
-ignoreSold = filter (\itm -> not $ isInfixOf "sold" (map toLower $ description itm))
+checkedPosts :: String
+checkedPosts = ".checked.txt"
 
-ignoreWTB :: [Listing] -> [Listing]
-ignoreWTB = filter (\itm -> not $ isInfixOf "wtb" (map toLower $ description itm))
+frontPageSaleIds :: [Listing] -> [String]
+frontPageSaleIds = map postId
 
-
---------------------------------------------------------------------------------
-
-getFrontPageListings :: IO [Listing]
-getFrontPageListings = do
+newPostings :: IO [Listing]
+newPostings = do
   cursor <- cursorFor forSaleForum
-  return $ ignoreWTB $ ignoreSold $ getFrontPageSales cursor
+  checkedIds <- readFile checkedPosts
+
+  let frontPageItemsIds = frontPageSaleIds $ getFrontPageSales cursor
+  let checkedItemIds = splitOn "\n" checkedIds
+
+  -- list of items noe yet checked yet
+  let notYetChecked =frontPageItemsIds \\ checkedItemIds
+
+  let toBeNotifiedOf = filter (\i -> postId i `elem` notYetChecked) $ getFrontPageSales cursor
+  mapM_ ((\itm -> appendFile checkedPosts $ itm ++ "\n") . postId) toBeNotifiedOf
+  return toBeNotifiedOf
