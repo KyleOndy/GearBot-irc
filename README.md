@@ -17,6 +17,14 @@ Want to submit a PR? I'd be forever grateful.
 ## Future Thoughts ##
 Some things I want to work towards implementing
 
+### #climbing
+Let gearbot sit in #climbing. Don't brodcast everything, keep that in #climbinggear.
+However, have some command to show latest post, for disscossion purposes.
+
+    someuser  > gearbot latest
+    gearbot   > <gear link>
+    someuser  > ^ Free Cams!
+
 ### Prevent bumps from being posted ###
 Possibly prevent this checking number of post in the thread?
 
