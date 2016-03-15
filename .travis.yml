@@ -133,6 +133,6 @@ deploy:
   local-dir: _dist
   acl: public_read
   on:
-    repo: KyleOndy/GearBot-irc
-    condition: "RELEASE=1"
+    branch: master
+    condition: $RELEASE=1
   skip_cleanup: true
