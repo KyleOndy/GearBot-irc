@@ -134,5 +134,5 @@ deploy:
   acl: public_read
   on:
     branch: master
-    condition: $RELEASE=1
+    condition: "$RELEASE = 1"
   skip_cleanup: true
