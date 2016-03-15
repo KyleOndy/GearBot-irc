@@ -43,7 +43,7 @@ data Listing = Listing { url :: String
 
 parseListing :: Cursor -> Listing
 parseListing c =
-  let u = siteUrl ++ cleanString (show $ attribute "href" c)
+  let u = siteUrl ++ "/v/" ++ (reverse $ takeWhile (/= '/') $ reverse (cleanString (show $ attribute "href" c)))
       d = cleanString $ show $ content $ head $ child c
       pid = reverse $ takeWhile (/= '/') $ reverse u
       in Listing {url = u, description = d, postId = pid}
