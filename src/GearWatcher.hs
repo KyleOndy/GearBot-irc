@@ -5,11 +5,11 @@ module GearWatcher (
   newPostings,
 ) where
 
+import Data.List
+import Data.List.Split
 import Network.HTTP.Conduit (simpleHttp)
 import Text.HTML.DOM (parseLBS)
 import Text.XML.Cursor
-import Data.List
-import Data.List.Split
 
 
 siteUrl :: String
@@ -55,7 +55,7 @@ getFrontPageSales c =
   map parseListing $ c $// findNodes -- &| extractData
 
 checkedPosts :: String
-checkedPosts = ".checked.txt"
+checkedPosts = "/tmp/gearbot/mountainproject.txt"
 
 frontPageSaleIds :: [Listing] -> [String]
 frontPageSaleIds = map postId
@@ -63,6 +63,7 @@ frontPageSaleIds = map postId
 newPostings :: IO [Listing]
 newPostings = do
   cursor <- cursorFor forSaleForum
+  --checkedPosts <- Right toText (getEnv "GB_DATA_DIR") ++ checkedPosts
   checkedIds <- readFile checkedPosts
 
   let frontPageItemsIds = frontPageSaleIds $ getFrontPageSales cursor
