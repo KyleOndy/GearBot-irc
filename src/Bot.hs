@@ -53,7 +53,6 @@ postListings h = do
       postListings h
 
 
-
 write :: Handle -> String -> String -> IO ()
 write h s t = do
     hPrintf h "%s %s\r\n" s t

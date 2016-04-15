@@ -10,6 +10,7 @@ import Text.HTML.DOM (parseLBS)
 import Text.XML.Cursor
 import Data.List
 import Data.List.Split
+import System.Environment
 
 
 siteUrl :: String
@@ -55,7 +56,7 @@ getFrontPageSales c =
   map parseListing $ c $// findNodes -- &| extractData
 
 checkedPosts :: String
-checkedPosts = ".checked.txt"
+checkedPosts = "mountainproject.txt"
 
 frontPageSaleIds :: [Listing] -> [String]
 frontPageSaleIds = map postId
@@ -63,6 +64,7 @@ frontPageSaleIds = map postId
 newPostings :: IO [Listing]
 newPostings = do
   cursor <- cursorFor forSaleForum
+  checkedPosts <- genEnv "GB_DATA_DIR" ++ checkedPosts
   checkedIds <- readFile checkedPosts
 
   let frontPageItemsIds = frontPageSaleIds $ getFrontPageSales cursor
