@@ -5,12 +5,12 @@ module GearWatcher (
   newPostings,
 ) where
 
-import Network.HTTP.Conduit (simpleHttp)
-import Text.HTML.DOM (parseLBS)
-import Text.XML.Cursor
 import Data.List
 import Data.List.Split
+import Network.HTTP.Conduit (simpleHttp)
 import System.Environment
+import Text.HTML.DOM (parseLBS)
+import Text.XML.Cursor
 
 
 siteUrl :: String
