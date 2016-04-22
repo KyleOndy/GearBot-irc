@@ -48,7 +48,7 @@ formatListing l = description l ++ " - " ++ url l
 postListings :: Handle -> IO ()
 postListings h = do
       l <- newPostings
-      unless (null l) (mapM_ (\a -> privmsg h $ formatListing a) l)
+      unless (null l) (mapM_ (privmsg h . formatListing) l)
       threadDelay(microSecondsPerSeconds * 60)
       postListings h
 
