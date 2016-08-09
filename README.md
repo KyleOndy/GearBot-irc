@@ -1,3 +1,7 @@
+# NO LONGER MAINTAINED
+
+I have moved my development efforts to [SuperMunter](https://github.com/SuperMunter/SuperMunter)
+
 # GearBot #
 [![Build Status](https://travis-ci.org/KyleOndy/GearBot-irc.svg?branch=master)](https://travis-ci.org/KyleOndy/GearBot-irc)
 
